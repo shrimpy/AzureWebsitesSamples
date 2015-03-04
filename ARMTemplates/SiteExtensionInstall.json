@@ -1,0 +1,31 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "siteName": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2014-11-01",
+      "name": "SettingsAPISample",
+      "type": "siteextensions",
+      "properties": {
+      }
+    },
+    {
+      "apiVersion": "2014-11-01",
+      "name": "SettingsAPISample/foo",
+      "type": "extensions/settings",
+      "dependsOn": [
+        "['SettingsAPISample']",
+        "[resourceId('Microsoft.Web/Sites/siteextensions', parameters('siteName'), 'SettingsAPISample')]"
+      ],
+      "properties": {
+        "value": "My value",
+        "count": 17
+      }
+    }
+  ]
+}
