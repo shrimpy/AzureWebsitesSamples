@@ -34,6 +34,7 @@
           "apiVersion": "2014-11-01",
           "name": "SettingsAPISample",
           "type": "siteextensions",
+          "location": "[parameters('siteLocation')]",
           "dependsOn": [
             "[parameters('siteName')]"
           ],
