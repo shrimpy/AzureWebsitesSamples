@@ -1,4 +1,3 @@
-
 {
   "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
@@ -15,24 +14,24 @@
   },
   "resources": [
     {
-      "apiVersion": "2015-02-01",
+      "apiVersion": "2014-11-01",
       "name": "[parameters('hostingPlanName')]",
       "type": "Microsoft.Web/serverfarms",
       "location": "[parameters('siteLocation')]",
       "properties": { }
     },
     {
-      "apiVersion": "2015-02-01",
+      "apiVersion": "2014-11-01",
       "name": "[parameters('siteName')]",
       "type": "Microsoft.Web/sites",
       "location": "[parameters('siteLocation')]",
       "dependsOn": [ "[parameters('hostingPlanName')]" ],
       "properties": {
-        "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('hostingPlanName'))]"
+        "serverFarm": "[parameters('hostingPlanName')]"
       },
       "resources": [
         {
-          "apiVersion": "2015-02-01",
+          "apiVersion": "2014-11-01",
           "name": "SettingsAPISample",
           "type": "siteextensions",
           "location": "[parameters('siteLocation')]",
@@ -43,7 +42,7 @@
           }
         },
         {
-          "apiVersion": "2015-02-01",
+          "apiVersion": "2014-11-01",
           "name": "SettingsAPISample/foo",
           "type": "extensions/settings",
           "location": "[parameters('siteLocation')]",
@@ -54,6 +53,17 @@
           "properties": {
             "value": "My value",
             "count": 17
+          }
+        },
+        {
+          "apiVersion": "2014-11-01",
+          "name": "filecounter",
+          "type": "siteextensions",
+          "location": "[parameters('siteLocation')]",
+          "dependsOn": [
+            "[parameters('siteName')]"
+          ],
+          "properties": {
           }
         }
       ]
